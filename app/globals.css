@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #0B0E14;
+  --foreground: #F8FAFC;
+  --font-sora: 'Sora', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sora);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #11131E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #312E81;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4F46E5;
+}
+
+/* Glassmorphism panel styles */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(11, 15, 26, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Scenery Textures and Patterns */
+.grassy-bank {
+  background: linear-gradient(180deg, #10B981 0%, #059669 35%, #047857 100%);
+  box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.2), 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cliff-soil {
+  background: linear-gradient(180deg, #78350F 0%, #451A03 60%, #290E00 100%);
+  background-size: 100% 100%;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05), 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.river-water {
+  background: linear-gradient(180deg, #06B6D4 0%, #0284C7 40%, #1E3A8A 100%);
+  box-shadow: inset 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Keyframe Animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.9); }
+  50% { opacity: 0.95; transform: scale(1.15); }
+}
+
+@keyframes bobbing {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
+}
+
+@keyframes wave-move-1 {
+  0% { transform: translateX(0) translateZ(0) scaleY(1); }
+  50% { transform: translateX(-25%) translateZ(0) scaleY(0.9); }
+  100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+}
+
+@keyframes wave-move-2 {
+  0% { transform: translateX(0) translateZ(0) scaleY(1); }
+  50% { transform: translateX(25%) translateZ(0) scaleY(1.1); }
+  100% { transform: translateX(50%) translateZ(0) scaleY(1); }
+}
+
+@keyframes sign-pulse {
+  0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 6px rgba(253, 224, 71, 0.4)); }
+  50% { transform: scale(1.08) translateY(-4px); filter: drop-shadow(0 0 20px rgba(253, 224, 71, 0.8)); }
+}
+
+@keyframes cloud-float {
+  0% { transform: translateX(-200px); }
+  100% { transform: translateX(110%); }
+}
+
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px) scaleY(0.95); }
+}
+
+/* Animation classes */
+.animate-twinkle {
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+.animate-bobbing {
+  animation: bobbing 5s ease-in-out infinite;
+}
+
+.animate-wave-1 {
+  animation: wave-move-1 20s linear infinite;
+}
+
+.animate-wave-2 {
+  animation: wave-move-2 15s linear infinite;
+}
+
+.animate-pulse-sign {
+  animation: sign-pulse 2.2s ease-in-out infinite;
+}
+
+.animate-cloud-slow {
+  animation: cloud-float 90s linear infinite;
+}
+
+.animate-cloud-fast {
+  animation: cloud-float 50s linear infinite;
+}
+
+.animate-hop:hover {
+  animation: hop 0.6s cubic-bezier(0.25, 1, 0.5, 1) 1;
+}
+
+/* Twinkling star glow */
+.star-glow {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9));
+}
+
+/* Toast animations using popover and Discrete transitions */
+.toast-popover {
+  opacity: 0;
+  transform: translateY(1.5rem) scale(0.95);
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.35s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-behavior: allow-discrete;
+}
+
+.toast-popover.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.95);
+  }
+}
+
+/* Accessible outline styling */
+*:focus-visible {
+  outline: 2px solid #FCD34D;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast-popover {
+    transform: none !important;
+    transition-duration: 0.1s !important;
+  }
+  
+  @starting-style {
+    .toast-popover.open {
+      transform: none !important;
+    }
+  }
+
+  .animate-twinkle,
+  .animate-bobbing,
+  .animate-wave-1,
+  .animate-wave-2,
+  .animate-pulse-sign,
+  .animate-cloud-slow,
+  .animate-cloud-fast,
+  .animate-hop {
+    animation: none !important;
+    transform: none !important;
+  }
 }
